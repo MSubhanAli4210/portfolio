@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -5,10 +7,19 @@ import Projects from "@/components/Projects";
 import MoreWork from "@/components/MoreWork";
 import Experience from "@/components/Experience";
 import TechStack from "@/components/TechStack";
-import SystemSection from "@/components/SystemSection";
-import GlobeSection from "@/components/GlobeSection";
-import NowSection from "@/components/NowSection";
 import Contact from "@/components/Contact";
+
+const SystemSection = dynamic(
+  () => import("@/components/SystemSection")
+);
+
+const GlobeSection = dynamic(
+  () => import("@/components/GlobeSection")
+);
+
+const NowSection = dynamic(
+  () => import("@/components/NowSection")
+);
 
 export default function Home() {
   return (
@@ -20,9 +31,11 @@ export default function Home() {
       <MoreWork />
       <Experience />
       <TechStack />
+
       <SystemSection />
       <GlobeSection />
       <NowSection />
+
       <Contact />
     </main>
   );

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+
 import {
   BrainCircuit,
   Cloud,
@@ -75,7 +76,7 @@ export default function SystemSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const glowRef = useRef<HTMLDivElement | null>(null);
 
-  const [activeNode, setActiveNode] = useState<string | null>("backend");
+  const [activeNode, setActiveNode] = useState("backend");
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -89,7 +90,9 @@ export default function SystemSection() {
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
 
-      glow.style.transform = `translate3d(${x - 180}px, ${y - 180}px, 0)`;
+      glow.style.transform = `translate3d(${x - 180}px, ${
+        y - 180
+      }px, 0)`;
     };
 
     const handleEnter = () => {
@@ -114,33 +117,28 @@ export default function SystemSection() {
   const getNode = (id: string) =>
     nodes.find((node) => node.id === id);
 
+  const selectedNode =
+    nodes.find((node) => node.id === activeNode) ?? nodes[0];
+
+  const SelectedIcon = selectedNode.icon;
+
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-[#0B1020] py-28 text-white md:py-40"
+      className="relative overflow-hidden bg-[#0B1020] py-24 text-white md:py-36"
     >
       {/* Cursor glow */}
       <div
         ref={glowRef}
-        className="
-          pointer-events-none
-          absolute
-          left-0
-          top-0
-          hidden
-          h-[360px]
-          w-[360px]
-          rounded-full
-          bg-blue-500/10
-          opacity-25
-          blur-[120px]
-          will-change-transform
-          md:block
-        "
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 hidden h-[360px] w-[360px] rounded-full bg-blue-500/10 opacity-25 blur-[120px] will-change-transform md:block"
       />
 
       {/* Mobile ambient glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-[100px] md:hidden" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-[100px] md:hidden"
+      />
 
       <div className="container-custom relative z-10">
         <div className="mb-16 flex flex-col justify-between gap-8 border-b border-white/10 pb-8 lg:flex-row lg:items-end">
@@ -175,50 +173,48 @@ export default function SystemSection() {
                 Selected Layer
               </p>
 
-              <div className="rounded-2xl border border-white/10 bg-[#11182B] p-6">
-                {nodes
-                  .filter((node) => node.id === activeNode)
-                  .map((node) => {
-                    const Icon = node.icon;
+              <div
+                className="rounded-2xl border border-white/10 bg-[#11182B] p-6"
+                aria-live="polite"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-400/20 bg-blue-400/10">
+                    <SelectedIcon
+                      size={18}
+                      className="text-blue-400"
+                      aria-hidden="true"
+                    />
+                  </div>
 
-                    return (
-                      <div key={node.id}>
-                        <div className="flex items-center gap-3">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-400/20 bg-blue-400/10">
-                            <Icon
-                              size={18}
-                              className="text-blue-400"
-                            />
-                          </div>
+                  <div>
+                    <p className="font-medium text-white">
+                      {selectedNode.label}
+                    </p>
 
-                          <div>
-                            <p className="font-medium text-white">
-                              {node.label}
-                            </p>
-
-                            <p className="mt-1 text-sm text-white/40">
-                              {node.sub}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                    <p className="mt-1 text-sm text-white/40">
+                      {selectedNode.sub}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
             <p className="mono mt-5 text-[10px] uppercase tracking-[0.18em] text-white/25">
-              Move your cursor · Click a node
+              Move your cursor · Click or focus a node
             </p>
           </div>
 
-          {/* Interactive system canvas */}
+          {/* Interactive system */}
           <div className="relative min-h-[520px] overflow-hidden rounded-[28px] border border-white/10 bg-[#11182B]/60 md:min-h-[620px]">
-            {/* Inner glow */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(79,140,255,0.08),transparent_65%)]" />
+            {/* Background */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(79,140,255,0.08),transparent_65%)]"
+            />
 
             {/* Grid */}
             <div
+              aria-hidden="true"
               className="pointer-events-none absolute inset-0 opacity-[0.08]"
               style={{
                 backgroundImage:
@@ -229,6 +225,7 @@ export default function SystemSection() {
 
             {/* Connections */}
             <svg
+              aria-hidden="true"
               className="pointer-events-none absolute inset-0 h-full w-full"
               viewBox="0 0 100 100"
               preserveAspectRatio="none"
@@ -261,7 +258,7 @@ export default function SystemSection() {
               })}
             </svg>
 
-            {/* Data pulses */}
+            {/* Pulses */}
             {connections.map(([fromId, toId], index) => {
               const from = getNode(fromId);
               const to = getNode(toId);
@@ -274,6 +271,7 @@ export default function SystemSection() {
               return (
                 <motion.div
                   key={`pulse-${fromId}-${toId}`}
+                  aria-hidden="true"
                   className="pointer-events-none absolute h-2 w-2 rounded-full bg-blue-400 shadow-[0_0_18px_rgba(79,140,255,0.8)]"
                   style={{
                     left: `${midX}%`,
@@ -301,7 +299,10 @@ export default function SystemSection() {
                 <motion.button
                   key={node.id}
                   type="button"
+                  aria-pressed={active}
+                  aria-label={`${node.label}: ${node.sub}`}
                   onClick={() => setActiveNode(node.id)}
+                  onFocus={() => setActiveNode(node.id)}
                   className={`
                     absolute
                     flex
@@ -318,6 +319,11 @@ export default function SystemSection() {
                     backdrop-blur-md
                     transition-colors
                     duration-300
+                    focus-visible:outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-blue-400/70
+                    focus-visible:ring-offset-2
+                    focus-visible:ring-offset-[#11182B]
                     ${
                       active
                         ? "border-blue-400/60 bg-blue-400/10"
@@ -338,24 +344,15 @@ export default function SystemSection() {
                   }}
                 >
                   <div
-                    className={`
-                      flex
-                      h-9
-                      w-9
-                      shrink-0
-                      items-center
-                      justify-center
-                      rounded-xl
-                      border
-                      ${
-                        active
-                          ? "border-blue-400/30 bg-blue-400/10"
-                          : "border-white/10 bg-white/[0.03]"
-                      }
-                    `}
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border ${
+                      active
+                        ? "border-blue-400/30 bg-blue-400/10"
+                        : "border-white/10 bg-white/[0.03]"
+                    }`}
                   >
                     <Icon
                       size={17}
+                      aria-hidden="true"
                       className={
                         active ? "text-blue-400" : "text-white/50"
                       }

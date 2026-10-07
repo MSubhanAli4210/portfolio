@@ -15,7 +15,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: "doctor-booking",
-    number: "03",
+    number: "01",
     title: "Doctor Booking",
     subtitle: "Healthcare Appointment Platform",
     description:
@@ -27,10 +27,9 @@ export const projects: Project[] = [
     featured: true,
     image: "/doctor-booking.png",
   },
-
   {
     id: "learnspace-lms",
-    number: "01",
+    number: "02",
     title: "Learnspace",
     subtitle: "Learning Management System",
     description:
@@ -44,7 +43,7 @@ export const projects: Project[] = [
   },
   {
     id: "real-estate",
-    number: "04",
+    number: "03",
     title: "Real Estate",
     subtitle: "Property Discovery Platform",
     description:
@@ -53,12 +52,12 @@ export const projects: Project[] = [
     category: "Real Estate / Frontend",
     href: "https://realestate-client-alpha.vercel.app",
     github: "https://github.com/MSubhanAli4210/realestate-client",
-    featured: false,
+    featured: true,
     image: "/realestate.png",
   },
   {
     id: "ecommerce-app",
-    number: "02",
+    number: "04",
     title: "E-Commerce",
     subtitle: "Full-Stack Shopping Platform",
     description:
@@ -67,7 +66,7 @@ export const projects: Project[] = [
     category: "E-Commerce / Full Stack",
     href: "#",
     github: "https://github.com/MSubhanAli4210/ecommerce-app",
-    featured: true,
+    featured: false,
     image: "/ecommerce.png",
   },
   {

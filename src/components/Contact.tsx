@@ -69,7 +69,7 @@ export default function Contact() {
             </a>
 
             <a
-              href="#"
+              href="https://www.linkedin.com/in/muhammad-subhan-ali-421747369/"
               target="_blank"
               rel="noreferrer"
               className="group flex items-center gap-3 rounded-full border border-white/10 bg-[#11182B] px-5 py-3 transition-all duration-300 hover:border-blue-400/40 hover:bg-[#151D33]"
