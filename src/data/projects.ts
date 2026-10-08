@@ -22,7 +22,7 @@ export const projects: Project[] = [
       "A modern healthcare booking interface focused on discovering doctors, viewing availability, and creating a clean appointment scheduling experience.",
     stack: ["React", "TypeScript", "Vite", "Responsive UI"],
     category: "Healthcare / Frontend",
-    href: "https://doctor-booking-client-beta.vercel.app",
+    href: "https://doctor-booking-client-jet.vercel.app/",
     github: "https://github.com/MSubhanAli4210/doctor-booking-client",
     featured: true,
     image: "/doctor-booking.png",
